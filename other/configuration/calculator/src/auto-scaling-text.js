@@ -7,7 +7,7 @@ class AutoScalingText extends React.Component {
   }
 
   componentDidUpdate() {
-    const {scale} = this.state
+    const { scale } = this.state
 
     const node = this.node
     const parentNode = node.parentNode
@@ -19,19 +19,19 @@ class AutoScalingText extends React.Component {
     if (scale === actualScale) return
 
     if (actualScale < 1) {
-      this.setState({scale: actualScale})
+      this.setState({ scale: actualScale })
     } else if (scale < 1) {
-      this.setState({scale: 1})
+      this.setState({ scale: 1 })
     }
   }
 
   render() {
-    const {scale} = this.state
+    const { scale } = this.state
 
     return (
       <div
         className={styles.autoScalingText}
-        style={{transform: `scale(${scale},${scale})`}}
+        style={{ transform: `scale(${scale},${scale})` }}
         ref={node => (this.node = node)}
       >
         {this.props.children}

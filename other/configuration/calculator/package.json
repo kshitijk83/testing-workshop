@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "dev": "webpack-dev-server --mode=development",
     "build": "webpack --mode=production",
     "start": "serve -s dist --port 8080"
@@ -15,6 +16,7 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-loader": "7.1.4",
+    "babel-plugin-dynamic-import-node": "^2.3.0",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
