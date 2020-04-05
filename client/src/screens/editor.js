@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as api from '../utils/api'
 import Form from '../components/form'
-import {Input, TextArea} from '../components/inputs'
+import { Input, TextArea } from '../components/inputs'
 
 class Editor extends Component {
   static defaultProps = {
@@ -9,7 +9,7 @@ class Editor extends Component {
   }
   handleSubmit = e => {
     e.preventDefault()
-    const {title, content, tags} = e.target.elements
+    const { title, content, tags } = e.target.elements
     const newPost = {
       title: title.value,
       content: content.value,
@@ -25,18 +25,18 @@ class Editor extends Component {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
-          <label style={{justifySelf: 'right'}} htmlFor="title-input">
+          <label style={{ justifySelf: 'right' }} htmlFor="title-input">
             Title
           </label>
           <Input id="title-input" placeholder="Title" name="title" />
           <label
-            style={{justifySelf: 'right', alignSelf: 'baseline'}}
+            style={{ justifySelf: 'right', alignSelf: 'baseline' }}
             htmlFor="content-input"
           >
             Content
           </label>
           <TextArea id="content-input" placeholder="Content" name="content" />
-          <label style={{justifySelf: 'right'}} htmlFor="tags-input">
+          <label style={{ justifySelf: 'right' }} htmlFor="tags-input">
             Tags
           </label>
           <Input id="tags-input" placeholder="tags" name="tags" />
