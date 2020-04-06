@@ -1,21 +1,35 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Login from '../login'
 // Basic unit test
 test('calls onSubmit with the username and password when submitted', () => {
   // Arrange
   // create a fake object to hold the form field values (username and password)
+  const fakeUser = {
+    username: 'hehe',
+    password: '123',
+  }
+  const fakeSubmit = jest.fn()
   // create a jest.fn() for your submit handler
   // render the Login component to a div
   // TIP: const div = document.createElement('div')
-  //
+  const container = document.createElement('div')
+  ReactDOM.render(<Login onSubmit={fakeSubmit} />, container)
+  const form = container.querySelector('form')
+  const {username, password} = form.elements
   // get the field nodes
   // TIP: const inputs = div.querySelectorAll('input')
   // TIP: const form = div.querySelector('form')
   // fill in the field values
-  //
+  username.value = fakeUser.username
+  password.value = fakeUser.password
   // Act
   // submit the form:
   // TIP: formNode.dispatchEvent(new window.Event('submit'))
-  //
+  form.dispatchEvent(new window.Event('submit'))
   // Assert
+  expect(fakeSubmit).toHaveBeenCalledTimes(1)
+  expect(fakeSubmit).toHaveBeenCalledWith(fakeUser)
   // ensure your submit handler was called properly
 })
 
