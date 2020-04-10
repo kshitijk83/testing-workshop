@@ -3,10 +3,16 @@
 // in that file. But I've split them up like this to make the workshop
 // flow nicer with the demo and exercises.
 // eslint-disable-next-line
-import {generate} from '../utils'
+import { generate } from '../utils'
 
 describe('authentication', () => {
-  beforeEach(() => cy.logout())
+  let user
+  beforeEach(() => {
+    cy.logout()
+      .createNewUser()
+      .then(u => (user = u))
+      .visit('/')
+  })
 
   it('should allow existing users to login', () => {
     // you'll want to first create a new user.
@@ -14,7 +20,17 @@ describe('authentication', () => {
     // cy.createNewUser().then(user => {
     //   more cy commands here
     // })
-    //
+    cy
+      .getByText('login')
+      .click()
+      .getByLabelText('Username')
+      .type(user.username)
+      .getByLabelText('Password')
+      .type(user.password)
+      .getByText('Submit')
+      .click()
+      .assertRoute('/')
+    cy.getByTestId('username-display').should('contain', user.username)
     // With the user created, go ahead and use the cy commands to:
     // 1. visit the app: visitApp
     // 2. Click the login link
