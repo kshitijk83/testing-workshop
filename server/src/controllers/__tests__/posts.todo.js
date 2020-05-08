@@ -1,7 +1,7 @@
-// import * as postsController from '../posts.todo'
-// import db from '../../utils/db'
-// eslint-disable-next-line no-unused-vars
 import {initDb, generate} from 'til-server-test-utils'
+import * as postsController from '../posts.todo'
+import db from '../../utils/db'
+// eslint-disable-next-line no-unused-vars
 
 // I'll give this one to you. You want the database to be fresh
 // the initDb function will initialize the database with random users and posts
@@ -12,7 +12,19 @@ beforeEach(() => initDb())
 test('getPosts returns all posts in the database', async () => {
   // here you'll need to Arrange, Act, and Assert
   // Arrange: set up the req and res mock objects
+  const req = {}
+  const res = {
+    json: jest.fn(),
+  }
   // Act: Call getPosts on the postsController with the req and res
+  await postsController.getPosts(req, res)
+  expect(res.json).toHaveBeenCalledTimes(1)
+  const firstCall = res.json.mock.calls[0]
+  const firstArg = firstCall[0]
+  const {posts} = firstArg
+  const actualPosts = await db.getPosts()
+  expect(posts).toEqual(actualPosts)
+  // console.log(actualPosts[0])
   // Assert:
   //   - ensure that your mock object functions were called properly
   //   - BONUS: ensure that the posts returned are the ones in the database `await db.getPosts()`
@@ -22,8 +34,18 @@ test('getPost returns the specific post', async () => {
   // here you'll need to Arrange, Act, and Assert
   // Arrange:
   //   - create a test post and insert it into the database using `await db.insertPost(generate.postData())`
+  const fakePost = await db.insertPost(generate.postData())
+  const req = {params: {id: fakePost.id}}
+  const res = {
+    json: jest.fn(),
+  }
   //   - set up the req and res mock objects. Make sure the req.params has the test post ID
   // Act: Call getPost on the postsController with the req and res
+  await postsController.getPost(req, res)
+  expect(res.json).toHaveBeenCalledTimes(1)
+  const {post} = res.json.mock.calls[0][0]
+  const actualPost = await db.getPost(post.id)
+  expect(post).toEqual(actualPost)
   // Assert:
   //   - ensure that your mock object functions were called properly
   //   - BONUS: ensure that the post you got back is the same one in the db

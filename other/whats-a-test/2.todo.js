@@ -14,8 +14,18 @@ Then run this code with `node 2.todo`
 > Make sure you're in the right directory!
 
  */
+function expect(fn) {
+  const res = fn();
+  return {
+    toBe(value) {
+      if (res !== value) {
+        throw new Error(`${fn()} is not equal to ${value}`)
+      }
+    }
+  }
+}
 
-const {sum, subtract} = require('./math')
+const { sum, subtract } = require('./math')
 
 let result, expected
 

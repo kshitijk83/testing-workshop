@@ -6,11 +6,7 @@ import * as utilsMock from '../utils'
 // will use the one that exists in the
 // __mocks__ directory which I created for you
 // already (you're welcome)
-jest.mock('../utils', () => {
-  return {
-    getWinner: jest.fn((p1, p2) => p2),
-  }
-})
+jest.mock('../utils')
 
 test('returns winner', () => {
   const winner = thumbWar('Ken Wheeler', 'Kent C. Dodds')

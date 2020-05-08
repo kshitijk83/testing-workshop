@@ -7,6 +7,20 @@
 /*
 http://ws.kcd.im/?ws=Testing&e=users%20test$20object%20factories&em=kshitijk83@gmail.com
 */
+import {initDb} from 'til-server-test-utils'
+import * as usersController from '../users'
+
+test('getUser returns all users', async () => {
+  await initDb()
+  const req = {}
+  const res = {
+    json: jest.fn(),
+  }
+  await usersController.getUsers(req, res)
+  expect(res.json).toHaveBeenCalledTimes(1)
+  // console.log(res.json.mock.calls[0])
+})
+
 test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
